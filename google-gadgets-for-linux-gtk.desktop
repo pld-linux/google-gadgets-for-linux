@@ -1,0 +1,15 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Google Gadgets (GTK)
+Name[en]=Google Gadgets (GTK)
+Name[zh-CN]=Google 小工具 (GTK)
+Comment=Run Google Gadgets in GNOME/GTK environment
+Comment[en]=Run Google Gadgets in GNOME/GTK environment
+Comment[zh-CN]=在 GNOME/GTK 环境中运行 Google 小工具
+Exec=ggl-gtk -s smjs %F
+Icon=google-gadgets
+Terminal=false
+StartupNotify=true
+Type=Application
+Categories=GNOME;GTK;Network;Utility;
+MimeType=application/x-google-gadgets;app/gg;
