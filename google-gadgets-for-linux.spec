@@ -117,7 +117,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_pixmapsdir}/%{realname}.png
 
 %attr(755,root,root) %{_libdir}/*.so.*.*.*
-%attr(755,root,root) %ghost %attr(755,root,root) %{_libdir}/*.so.0
+%attr(755,root,root) %ghost %{_libdir}/*.so.0
 %attr(755,root,root) %{_libdir}/%{realname}/gtkmoz-browser-child
 %dir %{_libdir}/%{realname}
 %dir %{_libdir}/%{realname}/modules
