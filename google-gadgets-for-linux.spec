@@ -38,7 +38,7 @@ google-gadgets-for-linux.
 %prep
 %setup -q
 # little hack for xulrunner
-%{__sed} -i "s/PREDEFINED_MACROS)/PREDEFINED_MACROS) -I\%{_includedir}\/xulrunner\/gtkembedmoz -I\%{_includedir}\/xulrunner\/js -I\%{_includedir}\/xulrunner\/xpcom /" extensions/gtkmoz_browser_element/Makefile.am
+%{__sed} -i "s/PREDEFINED_MACROS)/& -I\%{_includedir}\/xulrunner\/gtkembedmoz -I\%{_includedir}\/xulrunner\/js -I\%{_includedir}\/xulrunner\/xpcom /" extensions/gtkmoz_browser_element/Makefile.am
 mkdir -p build
 
 %build
@@ -53,7 +53,7 @@ export CXXFLAGS='%{rpmcxxflags}'
 %{__automake}
 cd build
 ../configure --prefix=%{_prefix}
-%{__make} -j2
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -106,4 +106,4 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_includedir}/%{realname}/ggadget/js
 %{_includedir}/%{realname}/ggadget/js/*.h
 %{_pkgconfigdir}/*.pc
-%{_libdir}/*.so
+%attr(755,root,root) %{_libdir}/*.so
