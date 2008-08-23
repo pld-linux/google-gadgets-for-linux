@@ -2,12 +2,12 @@
 # - add gtk BRs
 # - configure: WARNING: Library SpiderMonkey is not available, smjs-script-runtime extension won't be built.
 # - update desc
-# - split to gadgets
 #
 # Conditional build:
 %bcond_with	debug	# build with debug
 #% bcond_without	gtk	# without gtk support
 #% bcond_without	qt	# without qt support
+#% bcond_without	gadgets	# without gadgets
 
 %define		realname	google-gadgets
 #
@@ -36,10 +36,23 @@ BuildRequires:	libtool >= 1.5.22
 BuildRequires:	libxml2-devel >= 2.4.0
 BuildRequires:	sed >= 4.0
 BuildRequires:	xulrunner-devel >= 1.8
+BuildRequires:	zip
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 google-gadgets-for-linux.
+
+%package gadgets
+Summary:	google-gadgets set
+Summary(pl.UTF-8):	Zestaw gad¿etów google-gadgets
+Group:		X11/Applications
+Requires:	%{name} = %{version}-%{release}
+
+%description gadgets
+Google-gadgets set.
+
+%description gadgets -l pl.UTF-8
+Zestaw gad¿etów google-gadgets.
 
 %package devel
 Summary:	Header files for google-gadgets library
@@ -121,6 +134,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/%{realname}/gtkmoz-browser-child
 %dir %{_libdir}/%{realname}
 %dir %{_libdir}/%{realname}/modules
+
+%files gadgets
 %attr(755,root,root) %{_libdir}/%{realname}/modules/*.so
 
 %files devel
