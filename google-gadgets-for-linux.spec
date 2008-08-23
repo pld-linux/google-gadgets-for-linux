@@ -2,19 +2,19 @@
 # - add gtk BRs
 # - configure: WARNING: Library SpiderMonkey is not available, smjs-script-runtime extension won't be built.
 # - update desc
-# - split to main,devel,static,gadgets
+# - split to gadgets
 %define		realname	google-gadgets
 #
 Summary:	google-gadgets-for-linux
 Name:		google-gadgets-for-linux
 Version:	0.10.1
-Release:	0.1
+Release:	0.2
 License:	Apache License v2.0
 Group:		X11/Applications
 Source0:	http://google-gadgets-for-linux.googlecode.com/files/%{name}-%{version}.tar.gz
 # Source0-md5:	95b43aca687036753ad4d14a9f13126f
 Source1:	%{name}-gtk.desktop
-Source1:	%{name}-qt.desktop
+Source2:	%{name}-qt.desktop
 URL:		http://code.google.com/p/google-gadgets-for-linux/
 BuildRequires:	QtCore-devel >= 4.3
 BuildRequires:	QtScript-devel >= 4.3
@@ -34,6 +34,30 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 google-gadgets-for-linux.
+
+%package devel
+Summary:	Header files for google-gadgets library
+Summary(pl.UTF-8):	Pliki nag³ówkowe biblioteki google-gadgets
+Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description devel
+Header files for google-gadgets library.
+
+%description devel -l pl.UTF-8
+Pliki nag³ówkowe biblioteki google-gadgets.
+
+%package static
+Summary:	Static google-gadgets libraries
+Summary(pl.UTF-8):	Statyczne biblioteki google-gadgets
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description static
+Static google-gadgets libraries.
+
+%description static -l pl.UTF-8
+Statyczne biblioteki google-gadgets.
 
 %prep
 %setup -q
@@ -91,6 +115,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/%{realname}/modules
 %attr(755,root,root) %{_libdir}/%{realname}/modules/*.so
 
+%files devel
 %dir %{_libdir}/%{realname}/include
 %dir %{_libdir}/%{realname}/include/ggadget
 %{_libdir}/%{realname}/include/ggadget/*.h
@@ -105,5 +130,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/%{realname}/ggadget/qt/*.h
 %dir %{_includedir}/%{realname}/ggadget/js
 %{_includedir}/%{realname}/ggadget/js/*.h
-%{_pkgconfigdir}/*.pc
+%{_libdir}/*.la
 %attr(755,root,root) %{_libdir}/*.so
+%{_pkgconfigdir}/*.pc
+
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/lib*.a
