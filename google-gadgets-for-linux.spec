@@ -3,6 +3,12 @@
 # - configure: WARNING: Library SpiderMonkey is not available, smjs-script-runtime extension won't be built.
 # - update desc
 # - split to gadgets
+#
+# Conditional build:
+%bcond_with	debug	# build with debug
+#% bcond_without	gtk	# without gtk support
+#% bcond_without	qt	# without qt support
+
 %define		realname	google-gadgets
 #
 Summary:	google-gadgets-for-linux
@@ -62,7 +68,7 @@ Statyczne biblioteki google-gadgets.
 %prep
 %setup -q
 # little hack for xulrunner
-%{__sed} -i "s/PREDEFINED_MACROS)/& -I\%{_includedir}\/xulrunner\/gtkembedmoz -I\%{_includedir}\/xulrunner\/js -I\%{_includedir}\/xulrunner\/xpcom /" extensions/gtkmoz_browser_element/Makefile.am
+%{__sed} -i "s/PREDEFINED_MACROS)/& -I\/usr\/include\/xulrunner\/gtkembedmoz -I\/usr\/include\/xulrunner\/js -I\/usr\/include\/xulrunner\/xpcom /" extensions/gtkmoz_browser_element/Makefile.am
 mkdir -p build
 
 %build
@@ -76,7 +82,9 @@ export CXXFLAGS='%{rpmcxxflags}'
 %{__autoheader}
 %{__automake}
 cd build
-../configure --prefix=%{_prefix}
+../configure \
+	--prefix=%{_prefix} \
+	--%{?with_debug:en}%{!?with_debug:dis}able-debug
 %{__make}
 
 %install
