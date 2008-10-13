@@ -44,7 +44,7 @@ google-gadgets-for-linux.
 
 %package gadgets
 Summary:	google-gadgets set
-Summary(pl.UTF-8):	Zestaw gad縠t體 google-gadgets
+Summary(pl.UTF-8):	Zestaw gad偶et贸w google-gadgets
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 
@@ -52,11 +52,11 @@ Requires:	%{name} = %{version}-%{release}
 Google-gadgets set.
 
 %description gadgets -l pl.UTF-8
-Zestaw gad縠t體 google-gadgets.
+Zestaw gad偶et贸w google-gadgets.
 
 %package devel
 Summary:	Header files for google-gadgets library
-Summary(pl.UTF-8):	Pliki nag丑wkowe biblioteki google-gadgets
+Summary(pl.UTF-8):	Pliki nag艂贸wkowe biblioteki google-gadgets
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -64,7 +64,7 @@ Requires:	%{name} = %{version}-%{release}
 Header files for google-gadgets library.
 
 %description devel -l pl.UTF-8
-Pliki nag丑wkowe biblioteki google-gadgets.
+Pliki nag艂贸wkowe biblioteki google-gadgets.
 
 %package static
 Summary:	Static google-gadgets libraries
