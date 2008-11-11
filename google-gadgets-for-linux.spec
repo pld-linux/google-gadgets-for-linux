@@ -13,12 +13,12 @@
 #
 Summary:	google-gadgets-for-linux
 Name:		google-gadgets-for-linux
-Version:	0.10.1
+Version:	0.10.3
 Release:	0.2
 License:	Apache License v2.0
 Group:		X11/Applications
-Source0:	http://google-gadgets-for-linux.googlecode.com/files/%{name}-%{version}.tar.gz
-# Source0-md5:	95b43aca687036753ad4d14a9f13126f
+Source0:	http://google-gadgets-for-linux.googlecode.com/files/%{name}-%{version}.tar.bz2
+# Source0-md5:	16d2cc4fe05e4416d3b720090237520b
 Source1:	%{name}-gtk.desktop
 Source2:	%{name}-qt.desktop
 URL:		http://code.google.com/p/google-gadgets-for-linux/
@@ -122,11 +122,11 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
-%{_datadir}/mime/application/x-google-gadgets.xml
 %{_datadir}/mime/packages/00-google-gadgets.xml
 %dir %{_datadir}/%{realname}
 %{_datadir}/%{realname}/*.gg
 %{_desktopdir}/*.desktop
+%{_iconsdir}/*/*/*/*.png
 %{_pixmapsdir}/%{realname}.png
 
 %attr(755,root,root) %{_libdir}/*.so.*.*.*
@@ -149,10 +149,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/%{realname}/ggadget/dbus/*.h
 %dir %{_includedir}/%{realname}/ggadget/gtk
 %{_includedir}/%{realname}/ggadget/gtk/*.h
+%dir %{_includedir}/%{realname}/ggadget/npapi
+%{_includedir}/%{realname}/ggadget/npapi/*.h
 %dir %{_includedir}/%{realname}/ggadget/qt
 %{_includedir}/%{realname}/ggadget/qt/*.h
 %dir %{_includedir}/%{realname}/ggadget/js
 %{_includedir}/%{realname}/ggadget/js/*.h
+%dir %{_includedir}/%{realname}/ggadget/xdg
+%{_includedir}/%{realname}/ggadget/xdg/*.h
 %{_libdir}/*.la
 %attr(755,root,root) %{_libdir}/*.so
 %{_pkgconfigdir}/*.pc
