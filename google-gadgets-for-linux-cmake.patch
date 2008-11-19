@@ -19,3 +19,14 @@
    EXECUTE_PROCESS(COMMAND ${PKGCONFIG}
      "--variable=${_variable}"
      "${_package}"
+--- google-gadgets-for-linux-0.10.3/cmake/Configure.cmake	2008-11-19 14:24:04.329062250 +0100
++++ google-gadgets-for-linux-0.10.3/cmake/Configure.cmake-new	2008-11-19 14:24:38.115173750 +0100
+@@ -145,7 +145,7 @@
+ 
+ INCLUDE(CheckCCompilerFlag)
+ IF(UNIX)
+-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -Wall -Werror -Wconversion")
++  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -Wall -Werror")
+   # No "-Wall -Werror" for C flags, to avoid third_party code break.
+   SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
+   SET(PROJECT_RESOURCE_DIR share/${PRODUCT_NAME})
