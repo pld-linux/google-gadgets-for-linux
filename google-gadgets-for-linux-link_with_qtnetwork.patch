@@ -1,0 +1,14 @@
+--- google-gadgets-for-linux-0.10.4/cmake/Configure.cmake.orig	2008-11-26 23:32:09.000000000 +0100
++++ google-gadgets-for-linux-0.10.4/cmake/Configure.cmake	2008-11-26 23:44:44.000000000 +0100
+@@ -303,6 +303,11 @@
+     MESSAGE("Qt 4.4 or above is not available, QtScriptRuntime won't be built.")
+   ENDIF(QT_QTSCRIPT_FOUND)
+ 
++  PKG_CHECK_MODULES(QT_QTNETWORK QtNetwork>=4.4.0)
++  IF(QT_QTNETWORK_FOUND)
++    LIST(APPEND QT_LIBRARIES ${QT_QTNETWORK_LIBRARIES})
++  ENDIF(QT_QTSCRIPT_FOUND)
++
+   IF(NOT QT_QTWEBKIT_FOUND)
+     PKG_CHECK_MODULES(QT_QTWEBKIT QtWebKit)
+     IF(QT_QTWEBKIT_FOUND)
