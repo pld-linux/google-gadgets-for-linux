@@ -1,6 +1,8 @@
 # TODO:
 # - add gtk BRs
-# - configure: WARNING: Library SpiderMonkey is not available, smjs-script-runtime extension won't be built.
+# - smjs-script-runtime.so: undefined symbol: _ZN7ggadget2js14MassageJScriptEPKcbS2_i
+# c++filt _ZN7ggadget2js14MassageJScriptEPKcbS2_i
+# ggadget::js::MassageJScript(char const*, bool, char const*, int)
 # - update desc
 # Conditional build:
 #%bcond_with	debug	# build with debug
@@ -22,8 +24,10 @@ Source0:	%{name}-%{version}-%{rev}.tar.bz2
 Source1:	%{name}-gtk.desktop
 Source2:	%{name}-qt.desktop
 Patch0:		%{name}-cmake.patch
+Patch1:		%{name}-link_with_qtnetwork.patch
 URL:		http://code.google.com/p/google-gadgets-for-linux/
 BuildRequires:	QtCore-devel >= 4.4.3
+BuildRequires:	QtNetwork-devel >= 4.4.3
 BuildRequires:	QtScript-devel >= 4.4.3
 BuildRequires:	QtWebKit-devel >= 4.4.3
 BuildRequires:	curl-devel >= 7.18.2
@@ -82,6 +86,7 @@ Statyczne biblioteki google-gadgets.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 install -d build
