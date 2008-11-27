@@ -1,3 +1,5 @@
+# use this to get latest rev :
+# svn checkout http://google-gadgets-for-linux.googlecode.com/svn/trunk/ google-gadgets-for-linux-read-only
 # TODO:
 # - add gtk BRs
 # - smjs-script-runtime.so: undefined symbol: _ZN7ggadget2js14MassageJScriptEPKcbS2_i
