@@ -1,4 +1,4 @@
-# use this to get latest rev :
+# use this to get latest rev:
 # svn checkout http://google-gadgets-for-linux.googlecode.com/svn/trunk/ google-gadgets-for-linux-read-only
 # TODO:
 # - add gtk BRs
@@ -13,7 +13,7 @@
 #% bcond_without	gadgets	# without gadgets
 
 %define		realname	google-gadgets
-%define		rev	r1015
+%define		rev	r1028
 #
 Summary:	google-gadgets-for-linux
 Name:		google-gadgets-for-linux
@@ -22,7 +22,7 @@ Release:	0.%{rev}.1
 License:	Apache License v2.0
 Group:		X11/Applications
 Source0:	%{name}-%{version}-%{rev}.tar.bz2
-# Source0-md5:	fea2d698f9eb527f79241aa4d1b112d2
+# Source0-md5:	0dcf2f1e392e44323720ef422a18664c
 Source1:	%{name}-gtk.desktop
 Source2:	%{name}-qt.desktop
 Patch0:		%{name}-cmake.patch
@@ -32,8 +32,8 @@ BuildRequires:	QtCore-devel >= 4.4.3
 BuildRequires:	QtNetwork-devel >= 4.4.3
 BuildRequires:	QtScript-devel >= 4.4.3
 BuildRequires:	QtWebKit-devel >= 4.4.3
-BuildRequires:	curl-devel >= 7.18.2
 BuildRequires:	cmake >= 2.6.1-2
+BuildRequires:	curl-devel >= 7.18.2
 BuildRequires:	dbus-devel >= 1.0.2
 BuildRequires:	flex
 BuildRequires:	gstreamer-plugins-base-devel >= 0.10.0
@@ -138,9 +138,11 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/%{realname}/modules
 
 %files gadgets
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/%{realname}/modules/*.so
 
 %files devel
+%defattr(644,root,root,755)
 %dir %{_libdir}/%{realname}/include
 %dir %{_libdir}/%{realname}/include/ggadget
 %{_libdir}/%{realname}/include/ggadget/*.h
