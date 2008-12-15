@@ -87,6 +87,7 @@ Statyczne biblioteki google-gadgets.
 
 %prep
 %setup -q
+find -name '.svn' | xargs rm -rf
 %patch0 -p1
 %patch1 -p1
 
