@@ -11,14 +11,15 @@
 
 %define		realname	google-gadgets
 %define		rev	r1028
-%define		rel	2
+
 Summary:	google-gadgets-for-linux
 Name:		google-gadgets-for-linux
 Version:	0.10.4
-Release:	0.%{rev}.%{rel}
+Release:	0.1
 License:	Apache License v2.0
 Group:		X11/Applications
-Source0:	%{name}-%{version}-%{rev}.tar.bz2
+#Source0:	%{name}-%{version}-%{rev}.tar.bz2
+Source0:	http://google-gadgets-for-linux.googlecode.com/files/%{name}-%{version}.tar.bz2
 # Source0-md5:	0dcf2f1e392e44323720ef422a18664c
 Source1:	%{name}-gtk.desktop
 Source2:	%{name}-qt.desktop
