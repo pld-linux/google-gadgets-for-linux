@@ -11,7 +11,7 @@
 
 %define		realname	google-gadgets
 %define		rev	r1028
-%define		rel	1.1
+%define		rel	2
 Summary:	google-gadgets-for-linux
 Name:		google-gadgets-for-linux
 Version:	0.10.4
