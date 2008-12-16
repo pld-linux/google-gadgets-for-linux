@@ -15,7 +15,7 @@
 Summary:	google-gadgets-for-linux
 Name:		google-gadgets-for-linux
 Version:	0.10.4
-Release:	0.1
+Release:	1
 License:	Apache License v2.0
 Group:		X11/Applications
 #Source0:	%{name}-%{version}-%{rev}.tar.bz2
@@ -84,6 +84,22 @@ Static google-gadgets libraries.
 %description static -l pl.UTF-8
 Statyczne biblioteki google-gadgets.
 
+%package qt
+Summary:	Qt Runtime Environment
+Group:		X11/Applications
+Requires:	%{name} = %{version}-%{release}
+
+%description qt
+Qt runtime environment.
+
+%package gtk
+Summary:	GTK Runtime Environment
+Group:		X11/Applications
+Requires:	%{name} = %{version}-%{release}
+
+%description gtk
+GTK runtime environment.
+
 %prep
 %setup -q
 find -name '.svn' | xargs rm -rf
@@ -92,25 +108,24 @@ find -name '.svn' | xargs rm -rf
 %patch2 -p1
 
 %build
-install -d libltdl
-%{__libtoolize}
-%{__aclocal} -I autotools
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	--disable-ltdl-install \
-	--disable-static \
-	--disable-werror \
-	--with-oem-brand=pld-linux \
-	--with-browser-plugins-dir=%{_libdir}/browser-plugins
+install -d build
+cd build
+%cmake \
+	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
+	-DSYSCONF_INSTALL_DIR=%{_sysconfdir} \
+	-DGTKMOZEMBED_CFLAGS="-I$EMBED_INCDIR/js -I$EMBED_INCDIR/string" \
+%if "%{_lib}" == "lib64"
+	-DLIB_SUFFIX=64 \
+%endif
+	../
+
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir}}
 
-%{__make} install \
+%{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 # desync with cmake/ac makefiles
@@ -129,19 +144,27 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/*
 %{_datadir}/mime/packages/google-gadgets.xml
 %dir %{_datadir}/%{realname}
 %{_datadir}/%{realname}/*.gg
-%{_desktopdir}/*.desktop
+%{_desktopdir}/ggl-designer.desktop
 %{_iconsdir}/*/*/*/*.png
 %{_pixmapsdir}/%{realname}.png
-
 %attr(755,root,root) %{_libdir}/*.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/*.so.0
 %attr(755,root,root) %{_libdir}/%{realname}/gtkmoz-browser-child
 %dir %{_libdir}/%{realname}
 %dir %{_libdir}/%{realname}/modules
+
+%files qt 
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/ggl-qt
+%{_desktopdir}/ggl-qt.desktop
+
+%files gtk
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/ggl-gtk
+%{_desktopdir}/ggl-gtk.desktop
 
 %files gadgets
 %defattr(644,root,root,755)
