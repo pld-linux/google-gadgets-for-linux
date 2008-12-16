@@ -1,10 +1,11 @@
 --- google-gadgets-for-linux-0.10.3/cmake/Configure.cmake.orig	2008-11-07 14:23:55.000000000 +0100
 +++ google-gadgets-for-linux-0.10.3/cmake/Configure.cmake	2008-11-18 23:48:22.000000000 +0100
-@@ -365,6 +365,7 @@
+@@ -365,6 +365,8 @@
            ${EMBED_INCDIR}
            ${EMBED_INCDIR}/content
            ${EMBED_INCDIR}/dom
 +          ${EMBED_INCDIR}/js
++          ${EMBED_INCDIR}/string
            ${EMBED_INCDIR}/xpconnect
            ${EMBED_INCDIR}/widget
            ${EMBED_INCDIR}/gtkembedmoz
