@@ -1,24 +1,21 @@
 # use this to get latest rev:
-# svn checkout http://google-gadgets-for-linux.googlecode.com/svn/trunk/ google-gadgets-for-linux-read-only
+# svn export http://google-gadgets-for-linux.googlecode.com/svn/trunk/ google-gadgets-for-linux
 # TODO:
 # - add gtk BRs
-# - smjs-script-runtime.so: undefined symbol: _ZN7ggadget2js14MassageJScriptEPKcbS2_i
-# c++filt _ZN7ggadget2js14MassageJScriptEPKcbS2_i
-# ggadget::js::MassageJScript(char const*, bool, char const*, int)
 # - update desc
 # Conditional build:
-#%bcond_with	debug	# build with debug
+#% bcond_with	debug	# build with debug
 #% bcond_without	gtk	# without gtk support
 #% bcond_without	qt	# without qt support
 #% bcond_without	gadgets	# without gadgets
 
 %define		realname	google-gadgets
 %define		rev	r1028
-#
+%define		rel	1.1
 Summary:	google-gadgets-for-linux
 Name:		google-gadgets-for-linux
 Version:	0.10.4
-Release:	0.%{rev}.1
+Release:	0.%{rev}.%{rel}
 License:	Apache License v2.0
 Group:		X11/Applications
 Source0:	%{name}-%{version}-%{rev}.tar.bz2
@@ -27,6 +24,7 @@ Source1:	%{name}-gtk.desktop
 Source2:	%{name}-qt.desktop
 Patch0:		%{name}-cmake.patch
 Patch1:		%{name}-link_with_qtnetwork.patch
+Patch2:		%{name}-js.patch
 URL:		http://code.google.com/p/google-gadgets-for-linux/
 BuildRequires:	QtCore-devel >= 4.4.3
 BuildRequires:	QtNetwork-devel >= 4.4.3
@@ -90,31 +88,37 @@ Statyczne biblioteki google-gadgets.
 find -name '.svn' | xargs rm -rf
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
-install -d build
-cd build
-%cmake \
-	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
-	-DSYSCONF_INSTALL_DIR=%{_sysconfdir} \
-%if "%{_lib}" == "lib64"
-	-DLIB_SUFFIX=64 \
-%endif
-	../
-
+install -d libltdl
+%{__libtoolize}
+%{__aclocal} -I autotools
+%{__autoconf}
+%{__autoheader}
+%{__automake}
+%configure \
+	--disable-ltdl-install \
+	--disable-static \
+	--disable-werror \
+	--with-oem-brand=pld-linux \
+	--with-browser-plugins-dir=%{_libdir}/browser-plugins
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir}}
 
-%{__make} -C build install \
+%{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# desync with cmake/ac makefiles
+mv $RPM_BUILD_ROOT%{_datadir}/mime/packages/{00-,}google-gadgets.xml
 # desktop files
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}/ggl-gtk.desktop
 install %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}/ggl-qt.desktop
+
+rm -f $RPM_BUILD_ROOT%{_libdir}/google-gadgets/modules/smjs-script-runtime.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
