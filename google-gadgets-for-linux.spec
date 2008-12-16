@@ -134,7 +134,7 @@ mv $RPM_BUILD_ROOT%{_datadir}/mime/packages/{00-,}google-gadgets.xml
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}/ggl-gtk.desktop
 install %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}/ggl-qt.desktop
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/google-gadgets/modules/smjs-script-runtime.la
+rm -f $RPM_BUILD_ROOT%{_libdir}/google-gadgets/modules/*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -156,7 +156,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/%{realname}
 %dir %{_libdir}/%{realname}/modules
 
-%files qt 
+%files qt
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ggl-qt
 %{_desktopdir}/ggl-qt.desktop
