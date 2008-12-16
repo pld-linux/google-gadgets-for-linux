@@ -20,7 +20,7 @@ License:	Apache License v2.0
 Group:		X11/Applications
 #Source0:	%{name}-%{version}-%{rev}.tar.bz2
 Source0:	http://google-gadgets-for-linux.googlecode.com/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	0dcf2f1e392e44323720ef422a18664c
+# Source0-md5:	0ef0a62e0a575388084a77759b646718
 Source1:	%{name}-gtk.desktop
 Source2:	%{name}-qt.desktop
 Patch0:		%{name}-cmake.patch
